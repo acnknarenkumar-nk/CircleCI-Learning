@@ -4,15 +4,31 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:22.14
 
     steps:
       - checkout
 
       - run:
+          name: Check Node.js and npm
+          command: |
+            node --version
+            npm --version
+
+      - run:
+          name: Install Salesforce CLI
+          command: |
+            npm install --global @salesforce/cli
+
+      - run:
+          name: Verify Salesforce CLI
+          command: |
+            sf --version
+            sf commands
+
+      - run:
           name: Verify Salesforce project
           command: |
-            echo "Checking Salesforce project structure..."
             test -f sfdx-project.json
             test -f manifest/package.xml
             echo "Salesforce project structure verified!"
