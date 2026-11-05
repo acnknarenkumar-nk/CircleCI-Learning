@@ -24,7 +24,7 @@ jobs:
           name: Verify Salesforce CLI
           command: |
             sf --version
-            sf commands
+          
 
       - run:
           name: Verify Salesforce project
