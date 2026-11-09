@@ -24,7 +24,21 @@ jobs:
           name: Verify Salesforce CLI
           command: |
             sf --version
-          
+
+      - run:
+          name: Authenticate with Salesforce
+          command: |
+            printf '%s' "$SF_JWT_KEY" > /tmp/server.key
+            chmod 600 /tmp/server.key
+
+            sf org login jwt \
+              --username "$SF_USERNAME" \
+              --client-id "$SF_CLIENT_ID" \
+              --jwt-key-file /tmp/server.key \
+              --instance-url "$SF_LOGIN_URL" \
+              --alias circleci-learning-dev
+
+            sf org display --target-org circleci-learning-dev
 
       - run:
           name: Verify Salesforce project
