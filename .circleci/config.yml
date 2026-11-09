@@ -26,6 +26,14 @@ jobs:
             sf --version
 
       - run:
+          name: Diagnose Salesforce CLI
+          command: |
+            node --version
+            npm --version
+            sf --version
+            sf plugins
+
+      - run:
           name: Authenticate with Salesforce
           command: |
             printf '%s' "$SF_JWT_KEY" > /tmp/server.key
